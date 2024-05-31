@@ -42,7 +42,7 @@ yarn build
 ```
 
 
-# Api
+## Api
 
 `export type ApiListResponse<Type> = { `      - описывает тип ответа с сервера, который содержит в себе количество элементов и массив с элементами
 `    total: number,`
@@ -61,7 +61,7 @@ yarn build
 
 `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - по умолчанию выполняет `POST-запрос`, но метод может быть изменен
 
-## EventsEmitter
+### EventsEmitter
 
 Класс `EventsEmitter` - обработчик событий
 
@@ -87,13 +87,13 @@ yarn build
 
 `trigger<T extends object>(eventName: string, context?: Partial<T>)` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие.
 
-# Model
+## Model
 
 Класс `Model` - шаблон для классов слоя данных
 
 `protected events: IEvents` - объект класса `EventEmitter` для инициализации событий
 
-## ItemsModelData
+### ItemsModelData
 
 Класс `ItemsModelData` хранит данные товаров
 
@@ -105,7 +105,7 @@ yarn build
 
 `get itemById(id: string): IItem` - возвращает товар, находя его по ID
 
-## BasketModelData  
+### BasketModelData  
 
 Класс `BasketModelData` хранит данные, принадлежащие корзине
 
@@ -127,7 +127,7 @@ yarn build
 
 `clear(): void` - очистка корзины, выполняется в случае успешного заказа
 
-## UserData
+### UserData
 
 Класс `UserData` хранит данные, принадлежащие пользователю
 
@@ -159,7 +159,7 @@ yarn build
 `get userInfo(): IUser` - возвращает всю информацию о заказе
 
 
-### UserDataBuilder
+#### UserDataBuilder
 
 `protected user: IUserData` - экземпляр интерфейса IUserData
 
@@ -173,7 +173,7 @@ yarn build
 
 `getOrderData(): IUser` - возвращает всю информацию о пользователе 
 
-## SuccessData
+### SuccessData
 
 protected _userSuccess: TSuccessData - ответ с данными об успешном заказе
 
