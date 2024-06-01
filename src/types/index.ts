@@ -14,6 +14,9 @@ export interface IItemsModelData {
     getProduct(id: string): IItem;
 }
 
+export interface ICardAction {
+    onClick: (event: MouseEvent) => void;
+}
 
 export interface IBasketModel {
     get buyedItems(): IItem[]
@@ -55,7 +58,7 @@ export interface ISuccesData {
 }
 
 
-export interface IApiView {
+export interface IApiPresenter {
     getItems(): Promise<IItem[]>;
     getItemById(id: string): Promise<IItem>;
     postItem(order: IUserData): Promise<TSuccessData>;

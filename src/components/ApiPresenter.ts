@@ -1,7 +1,7 @@
 import { Api, ApiListResponse } from "./base/api";
-import { IApiView, IUserData, TSuccessData, IItem } from "../types"
+import { IApiPresenter, IUserData, TSuccessData, IItem } from "../types"
 
-export class AppApi extends Api implements IApiView {
+export class ApiPresenter extends Api implements IApiPresenter {
     protected cdn: string; 
 
     constructor(cdn: string, baseUrl: string, options: RequestInit = {}) {
