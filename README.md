@@ -148,7 +148,7 @@ yarn build
 
 `set email(value: string)` - записывает электронную почту
 
-`set phone-number(value: string)` - записывает номер телефона
+`set phone_number(value: string)` - записывает номер телефона
 
 `set address(value: string )` - устанавливает адрес
 
@@ -163,7 +163,7 @@ yarn build
 
 `protected user: IUserData` - экземпляр интерфейса IUserData
 
-`orderConstructor: IUserConstructor` - класс, создающий объекты интерфейса IUserData
+`userConstructor: IUserConstructor` - класс, создающий объекты интерфейса IUserData
 
 `set paymentInfo: TMoneyInfo` - записывает информацию корзины
 
@@ -175,6 +175,6 @@ yarn build
 
 ### SuccessData
 
-protected _userSuccess: TSuccessData - ответ с данными об успешном заказе
+`protected _userSuccess: TSuccessData` - ответ с данными об успешном заказе
 
-set userSuccess(value: TSuccess): void - записывает данные оформленного заказа, пришедшие с сервера
+`set userSuccess(value: TSuccess): void` - записывает данные оформленного заказа, пришедшие с сервера
