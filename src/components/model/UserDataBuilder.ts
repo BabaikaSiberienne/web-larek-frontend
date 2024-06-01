@@ -1,6 +1,6 @@
 import { Model } from "./Model";
-import { IEvents } from "./base/events"; 
-import { IUserDataBuilder, IUserConstructor, IUserData, TMoneyInfo, TDelivery, TContacts } from "../types"; 
+import { IEvents } from "./../base/events";
+import { IUserDataBuilder, IUserConstructor, IUserData, TMoneyInfo, TDelivery, TContacts } from "../../types"; 
 
 export class UserOrderDataBuilder extends Model implements IUserDataBuilder {
     protected userOrder: IUserData;
@@ -25,7 +25,7 @@ export class UserOrderDataBuilder extends Model implements IUserDataBuilder {
         this.userOrder._phone_number = info._phone_number;
     }
 
-    get userOrderData() {
+    getUserOrderData() {
         return this.userOrder
     }
 }

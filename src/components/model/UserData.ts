@@ -1,4 +1,4 @@
-import {  IUserOrder, TMoney } from "../types";
+import {  IUserOrder, TMoney } from "../../types"
 
 export class UserData implements IUserOrder {
     _payment: TMoney;

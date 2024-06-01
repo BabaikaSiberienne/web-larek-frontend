@@ -199,6 +199,7 @@ yarn build
 `getOrderData(): IUser` - возвращает всю информацию о пользователе 
 
 ### SuccessData
+
 Поля и свойства:
 
 `protected _userSuccess: TSuccessData` - ответ с данными об успешном заказе
@@ -209,7 +210,7 @@ yarn build
 
 
 ## Слой представления View
-### View 
+### Component 
 Класс, отвечающий за отображение данных 
 
 Конструктор:
@@ -219,6 +220,7 @@ yarn build
 `protected events?: IEvents` - экземпляр брокера событий
 
 
+Методы:
 
 `protected setText(element: HTMLElement, value: unknown): void` - устанавливает текстовое содержимое изменяемого элемента
 
@@ -253,9 +255,9 @@ View
 
 Поля и свойства:
 
-`protected _cardsList: HTMLUListElement` - HTML элемент, отвечающий за отображение списка карточек в корзине
+`protected _itemsList: HTMLUListElement` - HTML элемент, отвечающий за отображение списка карточек в корзине
 `protected _totalPrice: HTMLSpanElement;` - HTML элемент, отвечающий за отображение общей стоимости товаров
-`protected buttonСheckout: HTMLButtonElement` - кнопка "Оформить".
+`protected buttonToOrder: HTMLButtonElement` - кнопка "Оформить".
 
 Конструкторе:
 
@@ -263,9 +265,9 @@ View
 
 Методы:
 
-`set cardsList(cards: HTMLElement[]): void` - устанавливает список карточек добавленных товаров в корзину
+`set itemsList(cards: HTMLElement[]): void` - устанавливает список карточек добавленных товаров в корзину
 `set emptyCheck(state: boolean): void` - для блокировки кнопки "Оформить", если корзина пуста
-`set total(value: number)` - устанавливает общую стоимость товаров 
+`set totalPrice(value: number)` - устанавливает общую стоимость товаров 
 
 ### Card
 
@@ -289,10 +291,6 @@ View
 
 
 Методы и конструкции:
-
-`protected categoryClass(name: string): string` - отвечает за категорию товара
-
-`set category(category: string): void` - прописывает категорию товара
     
 `set id(id: string): void` - прописывает ID товара
     
@@ -300,15 +298,59 @@ View
     
 `set price(price: string): void` - устанавливает цену товара, в случае её отсутствия значение цены равно бесценному
     
-`set description(description: string): void` - прописывает описание товара
-    
-`set image(src: string): void` - устанавливает путь картинки, а также альтернативный текст товара
-    
-`set isInBasket(state: boolean): void` - меняет текст кнопки в зависимости от того, в корзине товар или нет
+#### CardGallery
+Класс `CardGallery` расширяет класс Card. Отображает карточку в каталоге на главной странице приложения.
+
+Поля и свойства:
+
+protected _image: HTMLImageElement - html элемент, отвечающий за отображение изображения товара
+protected _category: HTMLSpanElement - html элемент, отвечающий за отображение категории товара.
+
+Конструктор:
+
+Card
+
+Методы:
+
+protected addCSSClassCategory(value: string): void - служебный метод, предназначенный для присваивания определенного css класса html элементу категории товара в зависимости от ее названия (установка фонового цвета)
+set image(src: string): void - запись данных изображения товара
+set category(value: string): void - запись данных категории товара
+get category(): string - получение названия категории товара.
 
 
+#### CardBasket
+Класс CardBasket расширяет класс Card. Отображает карточки товара в корзине.
 
+Поля и свойства:
 
+_index: HTMLSpanElement - html элемент, отвечающий за отображение порядкового номера в корзине
+buttonDelCard: HTMLButtonElement - иконка корзины, по клику на которую удаляется соответствующая карточка.
+
+Конструктор:
+
+Card
+
+Методы:
+
+set index(value: number): void - записывает порядковый номер карточки в корзине.
+Класс CardPreview
+Расширяет класс CardCatalog. Служит для предварительного просмотра карточки товара с более детальным описанием и возможностью добавления его в корзину.
+
+Поля и свойства:
+
+protected _description: HTMLParagraphElement - html элемент, отвечающий за отображение описания товара
+protected buttonBuyDelete: HTMLButtonElement - кнопка для покупки товара или удаления товара из корзины в случае, если он уже был добавлен в нее.
+
+Конструктор:
+
+CardGallery
+
+Методы:
+
+set description(value: string): void - записвает описание товара
+set priceCheck(value: boolean): void - записывает булево значение для блокировки/разблокировки кнопки добавления в корзину, если в модальном окне открыт бесценный товар: true - блокирует кнопку, false - разблокирует кнопку
+get priceCheck(): boolean - возвращает булево значение для блокировки/разблокировки кнопки добавления в корзину
+set state(value: boolean) - устанавливает состояние кнопки
 
 ### Modal
 Класс `Modal` реализует модальное окно.
@@ -429,7 +471,7 @@ View
 
 Поля и свойства:
 
-`protected buttonOrderSuccess: HTMLButtonElement` - кнопка
+`protected buttonUserOrderSuccess: HTMLButtonElement` - кнопка
 `protected _description: HTMLParagraphElement` - HTML элемент, выводит общую стоимость
 
 Конструктор:

@@ -3,15 +3,15 @@ export interface IItem {
     _id: string;
     _title: HTMLElement;
     _image?: HTMLElement;
-    _price: HTMLElement;
+    _price: number;
     _description?: HTMLElement;
     _category?: HTMLElement;
     _button?: HTMLElement;
 }
 
 export interface IItemsModelData {
-    _products: IItem[];
-    getProduct(id: string): IItem;
+    _items: IItem[];
+    getItem(id: string): IItem;
 }
 
 export interface ICardAction {
@@ -22,14 +22,36 @@ export interface IBasketModel {
     get buyedItems(): IItem[]
     set buyedItems(value: IItem)
     checkItem(id: string): boolean
-    deleteBuyeditems(id: string): void
+    deleteBuyedItems(id: string): void
     getTotalQuantity(): number
     getTotalPrice(): number
     getIdList(): string[]
     clear(): void
 }
 
+export interface ICard {
+    id: string;
+    title: string;
+    price: string;
+}
+    
+export interface ICardGallery {
+    image: string;
+    category: string;
+}
+    
+export interface ICardBasket {
+    index: number;
+}
+    
+export interface ICardPreview {
+    description: string;
+    priceCheck: boolean;
+    state: boolean;
+}
+
 export interface IUserData {
+    userOrder: any;
     _phone_number: string;
     _address: string;
     _payment: TMoney;
@@ -46,17 +68,12 @@ export interface IUserDataBuilder {
     paymentInfo: TMoneyInfo;
     deliveryInfo: TDelivery;
     contactsInfo: TContacts;
-    get userOrderData(): IUserData;
+    getUserOrderData(): IUserData;
 }
 
 export interface IUserConstructor {
     new (): IUserOrder;
 }
-
-export interface ISuccesData {
-    orderSuccess: TSuccessData;
-}
-
 
 export interface IApiPresenter {
     getItems(): Promise<IItem[]>;
@@ -65,15 +82,23 @@ export interface IApiPresenter {
 }
 
 export interface IPage {
-    catalog: HTMLElement[];
+    gallery: HTMLElement[];
     counter: number;
-    lockScreen(value: boolean): void;
+    lock(value: boolean): void;
 }
 
-export interface IModal {
-    content: HTMLElement;
-    open(): void;
-    close(): void;
+export interface ISuccess {
+    description: string;
+}
+
+export interface ISuccessData {
+    orderSuccess: TSuccessData;
+}
+
+export interface IBasket {
+    cardsList: HTMLElement[];
+    emptyCheck: boolean;
+    total: number
 }
 
 export interface IForm {
@@ -81,24 +106,27 @@ export interface IForm {
     errorMessage: string;
     clear(): void;
 }
+    
 
-export interface IFormOrder {
+export interface IModal {
+    content: HTMLElement;
+    open(): void;
+    close(): void;
+}
+
+export interface IFormDelivery {
     payment: TMoney | null;
     address: string;
     valid: boolean;
-    render(data: object): HTMLElement;
+    clear(): void; 
+    render(data: object ): HTMLElement; 
 }
-
+    
 export interface IFormContacts {
     email: string;
-    phone_number: string;
+    phone: string;
     valid: boolean;
 }
-
-export interface ISuccess {
-    description: string;
-}
-
 export type TMoney = 'cash' | 'card'
 export type TMoneyInfo = Pick<IUserData, '_totalPrice' | '_userItemsList'>;
 export type TDelivery = Pick<IUserData, '_payment' | '_address'>;
@@ -109,8 +137,11 @@ export type TPage = {counter: number, catalog: HTMLElement[]};
 export type TBasket = {cardsList: HTMLElement[]; total: number; emptyCheck: boolean};
 export type TModal ={content: HTMLElement};
 export type TForm = {valid: boolean}
-export type TFormOrder = {payment: TMoney; address: string};
+export type TFormDelivery = {payment: TMoney; address: string};
 export type TFormContacts = {email: string; phone: string};
 export type TSuccessData = {id: string; total: number};
 export type TSuccess = {description: string};
 export type TId = {id: string};
+export type TCardGallery = Omit<IItem, 'description'>;
+export type TCardBasket = Pick<IItem, '_id' | '_title' | '_price'> & {index: number};
+export type TCardPreview = IItem & {priceCheck: boolean; state: boolean};
