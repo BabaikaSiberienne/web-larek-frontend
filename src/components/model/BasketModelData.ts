@@ -1,32 +1,32 @@
-import { IItem, IBasketModel } from "../../types";
+import { IItems, IBasketModel } from "../../types";
 import { Model } from "././Model";
 import { IEvents } from "./../base/events";
 
 export class BasketModelData  extends Model implements IBasketModel {
-    protected _buyedItems: IItem[];
+    protected _buyedItems: IItems[];
 
     constructor (events: IEvents) {
         super(events)
         this._buyedItems = []
     }
 
-    get buyedItems(): IItem[] {
+    get buyedItems(): IItems[] {
         return this._buyedItems
     }
 
-    addBuyedItems(value: IItem) {
-        if(!this._buyedItems.find(buyedItem => {buyedItem._id === value._id})) {
+    addBuyedItems(value: IItems) {
+        if(!this._buyedItems.find(buyedItem => {buyedItem.id === value.id})) {
             this._buyedItems.push(value);
-            this.events.emit('purchases:changed', {id: value._id })
+            this.events.emit('purchases:changed', {id: value.id })
         }
     }
 
     checkItem(id: string): boolean {
-        return (this._buyedItems.find(item => item._id === id)) ? true : false
+        return (this._buyedItems.find(item => item.id === id)) ? true : false
     }
 
     deleteBuyedItems(id: string): void {
-        this._buyedItems = this.buyedItems.filter(item => item._id !== id)
+        this._buyedItems = this.buyedItems.filter(item => item.id !== id)
         this.events.emit('items:changed', {id})
     }
 
@@ -36,14 +36,14 @@ export class BasketModelData  extends Model implements IBasketModel {
 
     getTotalPrice(): number {
         return this._buyedItems.reduce((sum, item) => {
-            return sum + item._price
+            return sum + item.price
         }, 0)
 
     }
 
     getIdList(): string[] {
         return this._buyedItems.map(item => {
-            return item._id
+            return item.id
         })
     }
 

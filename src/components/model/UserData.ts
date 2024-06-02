@@ -38,12 +38,12 @@ export class UserData implements IUserOrder {
     
     get userOrder() {
         return {
-            _payment: this._payment,
-            _email: this._email,
-            _phone_number: this._phone_number,
-            _address: this._address,
-            _totalPrice: this._totalPrice,
-            _userItemsList: this._userItemsList
+            payment: this._payment,
+            email: this._email,
+            phone: this._phone_number,
+            address: this._address,
+            total: this._totalPrice,
+            items: this._userItemsList
         }
     }
 }

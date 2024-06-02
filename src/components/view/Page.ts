@@ -24,7 +24,7 @@ export class Page extends Component<TPage> implements IPage {
     }
 
     set counter(value: number) {
-        this._counter.textContent = String(value);
+        this.setText(this._counter, String(value));
     }
 
     lock(value: boolean) {

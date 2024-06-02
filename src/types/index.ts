@@ -9,9 +9,18 @@ export interface IItem {
     _button?: HTMLElement;
 }
 
+export interface IItems {
+    id: string;
+    title: string;
+    image?: string;
+    price: number;
+    description?: string;
+    category?: string;
+}
+
 export interface IItemsModelData {
-    _items: IItem[];
-    getItem(id: string): IItem;
+    _items: IItems[];
+    getItem(id: string): IItems | undefined;
 }
 
 export interface ICardAction {
@@ -19,14 +28,13 @@ export interface ICardAction {
 }
 
 export interface IBasketModel {
-    get buyedItems(): IItem[]
-    set buyedItems(value: IItem)
-    checkItem(id: string): boolean
-    deleteBuyedItems(id: string): void
-    getTotalQuantity(): number
-    getTotalPrice(): number
-    getIdList(): string[]
-    clear(): void
+    buyedItems: IItems[];
+    checkItem(id: string): boolean;
+    deleteBuyedItems(id: string): void;
+    getTotalQuantity(): number;
+    getTotalPrice(): number;
+    getIdList(): string[];
+    clear(): void;
 }
 
 export interface ICard {
@@ -51,13 +59,12 @@ export interface ICardPreview {
 }
 
 export interface IUserData {
-    userOrder: any;
-    _phone_number: string;
-    _address: string;
-    _payment: TMoney;
-    _email: string 
-    _totalPrice: number;
-    _userItemsList: string[];
+    phone: string;
+    address: string;
+    payment: TMoney;
+    email: string 
+    total: number;
+    items: string[];
 }
 
 export interface IUserOrder extends IUserData {
@@ -76,7 +83,7 @@ export interface IUserConstructor {
 }
 
 export interface IApiPresenter {
-    getItems(): Promise<IItem[]>;
+    getItems(): Promise<IItems[]>;
     getItemById(id: string): Promise<IItem>;
     postItem(order: IUserData): Promise<TSuccessData>;
 }
@@ -128,12 +135,12 @@ export interface IFormContacts {
     valid: boolean;
 }
 export type TMoney = 'cash' | 'card'
-export type TMoneyInfo = Pick<IUserData, '_totalPrice' | '_userItemsList'>;
-export type TDelivery = Pick<IUserData, '_payment' | '_address'>;
-export type TContacts = Pick<IUserData, '_email' | '_phone_number' >
+export type TMoneyInfo = Pick<IUserData, 'total' | 'items'>;
+export type TDelivery = Pick<IUserData, 'payment' | 'address'>;
+export type TContacts = Pick<IUserData, 'email' | 'phone' >
 export type TCategoryClassNames = 'card__category_soft' |'card__category_other' | 'card__category_additional' | 'card__category_button' | 'card__category_hard';
 export type TCategoryClasses = Record<string, TCategoryClassNames>;
-export type TPage = {counter: number, catalog: HTMLElement[]};
+export type TPage = {counter: number, gallery: HTMLElement[]};
 export type TBasket = {cardsList: HTMLElement[]; total: number; emptyCheck: boolean};
 export type TModal ={content: HTMLElement};
 export type TForm = {valid: boolean}

@@ -52,7 +52,7 @@ const success = new Success(cloneTemplate(templateSuccess), events);
 
 //получим данны о продуктах с сервера
 api.getItems().then((data) => {
-  itemsData.items = data
+  itemsData.items = data;
 }).catch(console.error)
 
 //обработчик события изменения данных о продуктах 
@@ -61,7 +61,8 @@ api.getItems().then((data) => {
       const card = new CardGallery<TCardGallery>(cloneTemplate(templateCardCatalog), events);
       return card.render(product)
     })
-    page.render({catalog: cardsList})
+    console.log(cardsList);
+    page.render({gallery: cardsList})
   });
 
 events.on('modal:open', () => {
@@ -82,7 +83,7 @@ events.on('modal-basket:open', () => {
 events.on('modal-card:open',(data: TId) => {
   const productCorrect = itemsData.getItem(data.id);
   if(productCorrect) { 
-  modal.render({ content: cardPreview.render({...productCorrect, priceCheck: Boolean(productCorrect._price), state: basketData.checkItem(productCorrect._id)})});
+  modal.render({ content: cardPreview.render({...productCorrect, priceCheck: Boolean(productCorrect.price), state: basketData.checkItem(productCorrect.id)})});
   modal.open();
   }
 });
@@ -108,14 +109,14 @@ events.on('purchases:changed', (data: TId) => {
 
 
 events.on('modal-order:open', () => {
-  userOrderDataBuilder.paymentInfo = {_totalPrice: basketData.getTotalPrice(), _userItemsList: basketData.getIdList()};
+  userOrderDataBuilder.paymentInfo = {total: basketData.getTotalPrice(), items: basketData.getIdList()};
   modal.render({content: formOrder.render({valid: formOrder.valid})})
 });
 
 //обработчик события взаимодействия пользователя с полями формы доставки
 events.on('order:valid', () => {
   formOrder.valid = formOrder.valid;
-  userOrderDataBuilder.deliveryInfo = {_payment: formOrder.payment, _address: formOrder.address}
+  userOrderDataBuilder.deliveryInfo = {payment: formOrder.payment, address: formOrder.address}
 });
 
 //после заполнения формы доставки и записи для заказа соответствующих данных для заказа, обработчик события перехода к форме контактных данныхе
@@ -126,7 +127,7 @@ events.on(`order:submit`, () => {
 //обработчик события взаимодействия пользователя с полями формы контактных данных
 events.on('contacts:valid', () => {
   formContacts.valid = formContacts.valid;
-  userOrderDataBuilder.contactsInfo = {_email: formContacts.email, _phone_number: formContacts.phone};
+  userOrderDataBuilder.contactsInfo = {email: formContacts.email, phone: formContacts.phone};
 });
 
 /*
