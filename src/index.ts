@@ -61,7 +61,6 @@ api.getItems().then((data) => {
       const card = new CardGallery<TCardGallery>(cloneTemplate(templateCardCatalog), events);
       return card.render(product)
     })
-    console.log(cardsList);
     page.render({gallery: cardsList})
   });
 
@@ -100,11 +99,12 @@ events.on('purchases:delete', (data: TId) => {
 events.on('purchases:changed', (data: TId) => {
   cardPreview.render({priceCheck: true, state: !basketData.checkItem(data.id)});
   page.render({counter: basketData.getTotalQuantity()});
-  const purchasesList = basketData.buyedItems.map((purchase, index) => {
+  const purchasesList = basketData.buyedItems.map((buyedItem, index) => {
     const cardBasket = new CardBasket(cloneTemplate(templateCardBasket), events);
-    return cardBasket.render({...purchase, index: ++index})
+    return cardBasket.render({...buyedItem, index: ++index})
   });
   basket.render({cardsList: purchasesList, total: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})
+  console.log("pam")
 });
 
 

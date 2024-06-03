@@ -18,7 +18,7 @@ export class CardPreview extends CardGallery<TCardPreview> implements ICardPrevi
     }
 
     set description(value: string) {
-        this._description.textContent = value
+        this.setText(this._description, value)
     }
 
     set priceCheck(value: boolean) {
