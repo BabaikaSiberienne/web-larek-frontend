@@ -1,12 +1,12 @@
 import {  IUserOrder, TMoney } from "../../types"
 
 export class UserData implements IUserOrder {
-    _payment: TMoney;
-    _email: string;
-    _phone_number: string;
-    _address: string;
-    _totalPrice: number;
-    _userItemsList: string[];
+    protected _payment: TMoney;
+    protected _email: string;
+    protected _phone_number: string;
+    protected _address: string;
+    protected _totalPrice: number;
+    protected _userItemsList: string[];
 
     constructor() {
     

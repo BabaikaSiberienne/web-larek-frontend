@@ -1,5 +1,5 @@
 import { Api, ApiListResponse } from "./base/api";
-import { IApiPresenter, IUserData, TSuccessData, IItems, IItem } from "../types"
+import { IApiPresenter, IUserData, TSuccessData, IItem, IItems } from "../types"
 
 export class ApiPresenter extends Api implements IApiPresenter {
     protected cdn: string; 
@@ -10,10 +10,11 @@ export class ApiPresenter extends Api implements IApiPresenter {
     }
 
 getItems(): Promise<IItems[]> {
-    return this.get('/product').then((list: ApiListResponse<IItems>) => {
-        return list.items.map((item) => { return {...item, image: this.cdn + item.image}})
-    })
-}
+        return this.get('/product').then((list: ApiListResponse<IItems>) => {
+          return list.items.map((item) => { return {...item, image: this.cdn + item.image}})
+        })
+      }
+    
 
 getItemById(id: string): Promise<IItem> {
     return this.get('/product/' + id).then((item: IItem) => {

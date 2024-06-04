@@ -18,16 +18,13 @@ constructor (container: HTMLElement, events: IEvents) {
 
 set itemsList(cards: HTMLElement[]) {
     this._itemsList.replaceChildren(...cards)
-    console.log("itemsList")
 }
 
 set emptyCheck(state: boolean) {
     this.buttonToOrder.disabled = state
-    console.log("emptyCheck")
 }
 
 set totalPrice(value: number) {
     this.setText(this._totalPrice, String(value) + 'синапсов')
-    console.log("totalPrice")
-    }
+}
 }

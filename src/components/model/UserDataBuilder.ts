@@ -5,9 +5,9 @@ import { IUserDataBuilder, IUserConstructor, IUserOrder, TMoneyInfo, TDelivery, 
 export class UserOrderDataBuilder extends Model implements IUserDataBuilder {
     protected userOrder: IUserOrder;
 
-    constructor(events: IEvents, userConstructor: IUserConstructor) {
+    constructor(events: IEvents, orderConstructor: IUserConstructor) {
 		super(events);
-        this.userOrder = new userConstructor();
+        this.userOrder = new orderConstructor();
 	}
 
     set paymentInfo(info: TMoneyInfo) {

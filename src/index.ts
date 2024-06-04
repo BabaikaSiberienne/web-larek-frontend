@@ -94,17 +94,18 @@ events.on('purchases:add', (data: TId) => {
 
 events.on('purchases:delete', (data: TId) => {
   basketData.deleteBuyedItems(data.id)
+
 });
 
 events.on('purchases:changed', (data: TId) => {
   cardPreview.render({priceCheck: true, state: !basketData.checkItem(data.id)});
   page.render({counter: basketData.getTotalQuantity()});
-  const purchasesList = basketData.buyedItems.map((buyedItem, index) => {
+  const purchasesList = basketData.buyedItems.map((purchase, index) => {
     const cardBasket = new CardBasket(cloneTemplate(templateCardBasket), events);
-    return cardBasket.render({...buyedItem, index: ++index})
+    return cardBasket.render({...purchase, index: ++index})
   });
-  basket.render({cardsList: purchasesList, total: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})
-  console.log("pam")
+  console.log(purchasesList);
+  basket.render({itemsList: purchasesList, total: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})
 });
 
 

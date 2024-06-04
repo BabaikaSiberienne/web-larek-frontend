@@ -20,7 +20,7 @@ export interface IItems {
 
 export interface IItemsModelData {
     _items: IItems[];
-    getItem(id: string): IItems | undefined;
+    getItem(id: string): IItems;
 }
 
 export interface ICardAction {
@@ -59,10 +59,10 @@ export interface ICardPreview {
 }
 
 export interface IUserData {
+    payment: TMoney;
+    email: string;
     phone: string;
     address: string;
-    payment: TMoney;
-    email: string 
     total: number;
     items: string[];
 }
@@ -103,7 +103,7 @@ export interface ISuccessData {
 }
 
 export interface IBasket {
-    cardsList: HTMLElement[];
+    itemsList: HTMLElement[];
     emptyCheck: boolean;
     total: number
 }
@@ -141,7 +141,7 @@ export type TContacts = Pick<IUserData, 'email' | 'phone' >
 export type TCategoryClassNames = 'card__category_soft' |'card__category_other' | 'card__category_additional' | 'card__category_button' | 'card__category_hard';
 export type TCategoryClasses = Record<string, TCategoryClassNames>;
 export type TPage = {counter: number, gallery: HTMLElement[]};
-export type TBasket = {cardsList: HTMLElement[]; total: number; emptyCheck: boolean};
+export type TBasket = {itemsList: HTMLElement[]; total: number; emptyCheck: boolean};
 export type TModal ={content: HTMLElement};
 export type TForm = {valid: boolean}
 export type TFormDelivery = {payment: TMoney; address: string};

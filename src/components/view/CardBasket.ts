@@ -15,6 +15,6 @@ export class CardBasket extends Card<TCardBasket> implements ICardBasket {
     } 
 
     set index(value: number) {
-        this.setText(this._index, String(value))
+        this._index.textContent = String(value)
     }
 }

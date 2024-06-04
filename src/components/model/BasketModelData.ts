@@ -10,19 +10,19 @@ export class BasketModelData  extends Model implements IBasketModel {
         this._buyedItems = []
     }
 
-    get buyedItems() {
+    get buyedItems(): IItems[] {
         return this._buyedItems
     }
 
     addBuyedItems(value: IItems) {
-        if(!this._buyedItems.find(buyedItems => {buyedItems.id === value.id})) {
+        if(!this._buyedItems.find(buyedItem => {buyedItem.id === value.id})) {
             this._buyedItems.push(value);
             this.events.emit('purchases:changed', {id: value.id })
         }
     }
 
-    checkItem(id: string) {
-        return Boolean(this._buyedItems.find(item => item.id === id))
+    checkItem(id: string): boolean {
+        return (this._buyedItems.find(item => item.id === id)) ? true : false
     }
 
     deleteBuyedItems(id: string): void {
