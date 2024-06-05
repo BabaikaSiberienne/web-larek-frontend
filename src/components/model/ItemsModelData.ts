@@ -1,11 +1,9 @@
 import { IEvents } from "./../base/events";
-import { IItems } from "../../types";
-import { IItemsModelData } from "../../types";
+import { IItems, IItemsModelData } from "../../types";
 import { Model } from "./Model";
 
 export class ItemsModelData extends Model implements IItemsModelData  {
     _items: IItems[];
-    protected events: IEvents;
 
     constructor(events: IEvents) {
         super(events)
@@ -14,7 +12,7 @@ export class ItemsModelData extends Model implements IItemsModelData  {
 
     set items(value: IItems[]) {
         this._items = value;
-        this.events.emit('products:changed', this.items)
+        this.events.emit('products:changed', this._items)
     }
 
     get items() {

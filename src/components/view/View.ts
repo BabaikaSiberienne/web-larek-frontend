@@ -31,4 +31,13 @@ export abstract class Component<T> {
 		Object.assign(this as object, data ?? {});
 		return this.container;
 	}
+
+	removeClass(element: HTMLElement, className: string) {
+		element.classList.remove(className)
+	}
+
+	addClass(element: HTMLElement, className: string) {
+		element.classList.add(className)
+	}
+
 }

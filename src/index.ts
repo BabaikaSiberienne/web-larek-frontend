@@ -18,7 +18,7 @@ import { Modal } from './components/view/Modal';
 import { FormDelivery } from './components/view/FormDelivery';
 import { FormContacts } from './components/view/FormContacts';
 import { Success } from './components/view/Success';
-import { IItem, TCardGallery, TId, TSuccessData } from './types';
+import { IItem, IItems, TCardGallery, TId, TSuccessData } from './types';
 
 //исчем контейнеры и темплейты
 const containerPage = ensureElement<HTMLElement>('.page');
@@ -56,10 +56,10 @@ api.getItems().then((data) => {
 }).catch(console.error)
 
 //обработчик события изменения данных о продуктах 
-  events.on('products:changed', (items: IItem[]) => {
+  events.on('products:changed', (items: IItems[]) => {
     const cardsList = items.map((product) => {
-      const card = new CardGallery<TCardGallery>(cloneTemplate(templateCardCatalog), events);
-      return card.render(product)
+      const cards = new CardGallery<TCardGallery>(cloneTemplate(templateCardCatalog), events);
+      return cards.render(product)
     })
     page.render({gallery: cardsList})
   });
@@ -74,7 +74,7 @@ events.on('modal:close', () => {
 
 //обработаем событие, когда покупатель кликнул по иконке(кнопке) корзины на главной старанице
 events.on('modal-basket:open', () => {
-  modal.render({ content: basket.render({total: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})});
+  modal.render({ content: basket.render({totalPrice: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})});
   modal.open();
 });
 
@@ -104,8 +104,7 @@ events.on('purchases:changed', (data: TId) => {
     const cardBasket = new CardBasket(cloneTemplate(templateCardBasket), events);
     return cardBasket.render({...purchase, index: ++index})
   });
-  console.log(purchasesList);
-  basket.render({itemsList: purchasesList, total: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})
+  basket.render({itemsList: purchasesList, totalPrice: basketData.getTotalPrice(), emptyCheck: basketData.getTotalQuantity() === 0})
 });
 
 

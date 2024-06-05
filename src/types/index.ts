@@ -5,8 +5,7 @@ export interface IItem {
     _image?: HTMLElement;
     _price: number;
     _description?: HTMLElement;
-    _category?: HTMLElement;
-    _button?: HTMLElement;
+    _category?: string;
 }
 
 export interface IItems {
@@ -105,7 +104,7 @@ export interface ISuccessData {
 export interface IBasket {
     itemsList: HTMLElement[];
     emptyCheck: boolean;
-    total: number
+    totalPrice: number
 }
 
 export interface IForm {
@@ -141,7 +140,7 @@ export type TContacts = Pick<IUserData, 'email' | 'phone' >
 export type TCategoryClassNames = 'card__category_soft' |'card__category_other' | 'card__category_additional' | 'card__category_button' | 'card__category_hard';
 export type TCategoryClasses = Record<string, TCategoryClassNames>;
 export type TPage = {counter: number, gallery: HTMLElement[]};
-export type TBasket = {itemsList: HTMLElement[]; total: number; emptyCheck: boolean};
+export type TBasket = {itemsList: HTMLElement[]; totalPrice: number; emptyCheck: boolean};
 export type TModal ={content: HTMLElement};
 export type TForm = {valid: boolean}
 export type TFormDelivery = {payment: TMoney; address: string};
@@ -149,6 +148,6 @@ export type TFormContacts = {email: string; phone: string};
 export type TSuccessData = {id: string; total: number};
 export type TSuccess = {description: string};
 export type TId = {id: string};
-export type TCardGallery = Omit<IItem, 'description'>;
+export type TCardGallery = Omit<IItems, 'description'>;
 export type TCardBasket = Pick<IItem, '_id' | '_title' | '_price'> & {index: number};
 export type TCardPreview = IItem & {priceCheck: boolean; state: boolean};
